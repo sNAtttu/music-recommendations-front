@@ -1,10 +1,28 @@
 <script>
+	import { onMount } from 'svelte';
 	export let name;
+	export let apiBaseUrl;
+
+	let genres = [];
+
+	const genreFunctionName = 'FetchRecommendationsSpotify';
+
+	onMount(async () => {
+		const response = await fetch(`${apiBaseUrl}${genreFunctionName}`);
+		genres = await response.json();
+	});
+
 </script>
 
 <main>
 	<h1>Hello {name}!</h1>
-	<p>Visit the <a href="https://svelte.dev/tutorial">Svelte tutorial</a> to learn how to build Svelte apps.</p>
+	<ul>
+		{#each genres as genre}
+			<li>
+				{genre}
+			</li>
+		{/each}
+	</ul>
 </main>
 
 <style>
