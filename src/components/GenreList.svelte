@@ -1,6 +1,9 @@
 <script>
     export let itemList;
+    export let apiBaseUrl;
+    export let recommendations;
 
+    const recommendationFunctionName = "FetchRecommendationsFromSpotify";
     let selectedGenres = [];
 
     const handleGenreButtonClick = event => {
@@ -19,9 +22,10 @@
         selectedGenres = selectedGenres;
     }
 
-    const handleGenreSubmit = event => {
-        console.log("Selected genres: ");
-        console.log(selectedGenres);
+    const handleGenreSubmit = async event => {
+        const genresQueryParams = selectedGenres.join();
+        const response = await fetch(`${apiBaseUrl}${recommendationFunctionName}?genres=${genresQueryParams}`);
+		recommendations = await response.json();
     }
 
 </script>

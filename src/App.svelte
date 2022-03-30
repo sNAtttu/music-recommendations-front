@@ -1,11 +1,14 @@
 <script>
-	import GenreList from './components/GenreList.svelte'
+	import GenreList from './components/GenreList.svelte';
+	import Recommendations from './components/Recommendations.svelte';
 	import { onMount } from 'svelte';
+
 	export let apiBaseUrl;
 
 	let genres = [];
+	let recommendations = {};
 
-	const genreFunctionName = 'FetchRecommendationsSpotify';
+	const genreFunctionName = 'GetGenresFromSpotify';
 
 	onMount(async () => {
 		const response = await fetch(`${apiBaseUrl}${genreFunctionName}`);
@@ -15,5 +18,6 @@
 </script>
 
 <main>
-	<GenreList itemList={genres}/>	
+	<GenreList itemList={genres} apiBaseUrl={apiBaseUrl} bind:recommendations={recommendations} />
+	<Recommendations recommendations={recommendations} />
 </main>
