@@ -5,7 +5,6 @@ const apiBaseUrl = process.env.isProd ? 'https://music-recommendations.azurewebs
 const app = new App({
 	target: document.body,
 	props: {
-		name: 'Santeri',
 		apiBaseUrl,
 	}
 });
