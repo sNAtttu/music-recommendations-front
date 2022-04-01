@@ -7,15 +7,15 @@
     let selectedGenres = [];
 
     const handleGenreButtonClick = event => {
-        const selectedGenre = event.target.innerText;
-        const index = selectedGenres.findIndex(sg => sg === selectedGenre);
+        const selectedGenre = event.target;
+        const index = selectedGenres.findIndex(sg => sg.innerText === selectedGenre.innerText);
         if(index === -1) {
             selectedGenres.push(selectedGenre);
-            event.target.style.backgroundColor = "#7FFF00";
+            selectedGenre.style.backgroundColor = "#7FFF00";
         }
         else {
             selectedGenres.splice(index, 1);
-            event.target.style.backgroundColor = "#f4f4f4";
+            selectedGenre.style.backgroundColor = "#f4f4f4";
         }
 
         // Interesting way of handling things in Svelte
@@ -23,10 +23,19 @@
     }
 
     const handleGenreSubmit = async event => {
-        const genresQueryParams = selectedGenres.join();
+        if(selectedGenres.length === 0) return;
+        const genresTexts = selectedGenres.map(genre => genre.innerText);
+        const genresQueryParams = genresTexts.join();
         const response = await fetch(`${apiBaseUrl}${recommendationFunctionName}?genres=${genresQueryParams}`);
-		recommendations = await response.json();
+		const recommendationsJson = await response.json();
+        recommendations = recommendationsJson.tracks;
     }
+
+    const clearAllGenres = async event => {
+        selectedGenres.forEach(genre => genre.style.backgroundColor = "#f4f4f4");
+        selectedGenres = [];
+    }
+
 
 </script>
 <div class="genre-list">
@@ -37,10 +46,11 @@
     <h2>Selected Genres:</h2>
     <ul>
         {#each selectedGenres as genre}
-            <li>{genre}</li>
+            <li>{genre.innerText}</li>
         {/each}
     </ul>
     <button on:click={handleGenreSubmit}>Find</button>
+    <button on:click={clearAllGenres}>Clear All</button>
 </div>
 <style>
     .genre-list button { margin: 5px }

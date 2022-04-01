@@ -6,7 +6,7 @@
 	export let apiBaseUrl;
 
 	let genres = [];
-	let recommendations = {};
+	let recommendations = [];
 
 	const genreFunctionName = 'GetGenresFromSpotify';
 
@@ -18,6 +18,7 @@
 </script>
 
 <main>
+	<h1>Neo</h1>
 	<GenreList itemList={genres} apiBaseUrl={apiBaseUrl} bind:recommendations={recommendations} />
 	<Recommendations recommendations={recommendations} />
 </main>
