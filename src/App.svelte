@@ -16,9 +16,18 @@
 	});
 
 </script>
-
-<main>
-	<h1>Neo</h1>
-	<GenreList itemList={genres} apiBaseUrl={apiBaseUrl} bind:recommendations={recommendations} />
-	<Recommendations recommendations={recommendations} />
-</main>
+<body>
+	<main>
+		<h1>Neo</h1>
+		<GenreList itemList={genres} apiBaseUrl={apiBaseUrl} bind:recommendations={recommendations} />
+		<Recommendations recommendations={recommendations} />
+		<br/>
+	</main>
+	
+</body>
+<style>
+	body {
+		background: linear-gradient(to right, rgb(11, 11, 12), rgb(50, 50, 53));
+		color: aliceblue
+	}
+</style>

@@ -11,11 +11,9 @@
         const index = selectedGenres.findIndex(sg => sg.innerText === selectedGenre.innerText);
         if(index === -1) {
             selectedGenres.push(selectedGenre);
-            selectedGenre.style.backgroundColor = "#7FFF00";
         }
         else {
             selectedGenres.splice(index, 1);
-            selectedGenre.style.backgroundColor = "#f4f4f4";
         }
 
         // Interesting way of handling things in Svelte
@@ -32,17 +30,17 @@
     }
 
     const clearAllGenres = async event => {
-        selectedGenres.forEach(genre => genre.style.backgroundColor = "#f4f4f4");
         selectedGenres = [];
     }
 
 
 </script>
 <div class="genre-list">
-    {#each itemList as item}
-        <button on:click={handleGenreButtonClick} value={item}>{item}</button>
-    {/each}
-
+    <div class="button-container">
+        {#each itemList as item}
+            <button class="genre-button" on:click={handleGenreButtonClick} value={item}>{item}</button>
+        {/each}
+    </div>
     <h2>Selected Genres:</h2>
     <ul>
         {#each selectedGenres as genre}
@@ -53,5 +51,33 @@
     <button on:click={clearAllGenres}>Clear All</button>
 </div>
 <style>
-    .genre-list button { margin: 5px }
+    .button-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    .button-container .genre-button {
+        flex: 0 0 10%;
+        background: transparent;
+        box-sizing: border-box;
+        border-radius: 0.6rem;
+        align-self: center;
+        font-size: 17px;
+        font-weight: 400;
+        text-align: center;
+        color: aliceblue;
+        padding: 0.5em;
+        font-family: Pangolin;
+        font-weight: bold;
+        cursor: pointer;
+    }
+
+    .genre-button:hover {
+        transition: 0.4s ease-in-out;
+        background: rgb(205, 169, 50);
+        color: rgb(14, 14, 17);
+        }
+    
+
 </style>
