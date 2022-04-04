@@ -18,7 +18,7 @@
 </script>
 <body>
 	<main>
-		<h1>Neo</h1>
+		<h1>The friend who has a bad music taste</h1>
 		<GenreList itemList={genres} apiBaseUrl={apiBaseUrl} bind:recommendations={recommendations} />
 		<Recommendations recommendations={recommendations} />
 		<br/>

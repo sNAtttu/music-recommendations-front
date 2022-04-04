@@ -27,6 +27,8 @@
         const response = await fetch(`${apiBaseUrl}${recommendationFunctionName}?genres=${genresQueryParams}`);
 		const recommendationsJson = await response.json();
         recommendations = recommendationsJson.tracks;
+        recommendations.sort((a, b) => a.popularity > b.popularity);
+        console.log(recommendations)
     }
 
     const clearAllGenres = async event => {
